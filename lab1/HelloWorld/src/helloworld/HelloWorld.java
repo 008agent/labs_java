@@ -1,5 +1,6 @@
 package helloworld;
 
+
 /** Our basic class */
 public class HelloWorld implements Iprintable
 {
@@ -11,6 +12,7 @@ public class HelloWorld implements Iprintable
         HelloWorld hw = new HelloWorld();
         hw.flush();                         //this won't happen. flush is deprecated
         hw.print();
+        
         
         Extender ext = new Extender("hello,eternal world");
         ext.print();
