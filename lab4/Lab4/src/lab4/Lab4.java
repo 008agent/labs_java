@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,6 +17,7 @@ import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.MouseInputListener;
 import var333.Contour;
 import var333.Mark;
 
@@ -40,6 +43,7 @@ public class Lab4 implements Runnable
     ActionListener                  x_changed;
     ActionListener                  y_changed;
     ChangeListener                  radius_changed;
+    MouseListener                   mouse_click;
 
     //точка входа
     public static void main(String[] args) 
@@ -131,21 +135,21 @@ public class Lab4 implements Runnable
                     y_3.setSelected(false);
                     y_4.setSelected(false);
                     curr_y = 1;
-                } else
+                }
                 if(y_2.isSelected())
                 {
                     y_1.setSelected(false);
                     y_3.setSelected(false);
                     y_4.setSelected(false);
                     curr_y = 2;
-                } else
+                }
                 if(y_3.isSelected())
                 {
                     y_1.setSelected(false);
                     y_2.setSelected(false);
                     y_4.setSelected(false);
                     curr_y = 3;
-                } else
+                }
                 if(y_4.isSelected())
                 {
                     y_1.setSelected(false);
@@ -157,11 +161,45 @@ public class Lab4 implements Runnable
                 label_coords.setText(mark.toString());
             }
         };
-        
         y_1.addActionListener(y_changed);
         y_2.addActionListener(y_changed);
         y_3.addActionListener(y_changed);
         y_4.addActionListener(y_changed);
+        
+        mouse_click     = new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                label_coords.setText("Clicked");
+                painter.Painter.draw_grid_on_panel(paint_area,radius);
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                label_coords.setText("Pressed");
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                label_coords.setText("Released");
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                label_coords.setText("Entered at ");
+               // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                label_coords.setText("Exited");
+               // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        };
+        paint_area.addMouseListener(mouse_click);
         
     }
     
