@@ -3,12 +3,15 @@ package lab4;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,14 +20,13 @@ import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.MouseInputListener;
 import var333.Contour;
 import var333.Mark;
 
 public class Lab4 implements Runnable
 {
     //глобальные переменные: радиус,контур,точка из прошлой лабы
-    public static int               radius,
+    public static int               radius = 1,
                                     curr_x,
                                     curr_y;
     public static Contour           contour;
@@ -51,11 +53,19 @@ public class Lab4 implements Runnable
         SwingUtilities.invokeLater(new Lab4());
     }
     
+    public void paint_all()
+    {
+        paint_area.getGraphics().clearRect(0, 0, paint_area.getWidth(), paint_area.getHeight());
+        painter.Painter.draw_var333_figure(paint_area, 25, radius);
+        painter.Painter.draw_grid_on_panel(paint_area,25);
+    }
+    
     //инициализация глобальных переменных
     public void init_globals()
     {
         mark    = new Mark(curr_x, curr_y);
         contour = new Contour(radius);
+        form.setTitle("radius = " + String.valueOf(radius));
     }
     
     //инициализация элементов управления
@@ -78,10 +88,11 @@ public class Lab4 implements Runnable
                     
             p_elements.add(radius_slider = new JSlider(1, 10, 1));
             p_elements.add(label_coords = new JLabel("here will be coordinates"));
+                label_coords.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
         //панель с областью рисования
       p_canvas   = new Panel(new GridLayout());
             paint_area = new Canvas();
-            paint_area.setBackground(Color.GREEN);
+            paint_area.setBackground(new Color(0,250,0));
             paint_area.setSize(400, 300);
             p_canvas.add(paint_area);
             
@@ -105,6 +116,7 @@ public class Lab4 implements Runnable
                  radius_slider.setToolTipText( String.valueOf(radius_slider.getValue()) );
                  //пересчитать контур
                  init_globals();
+                 paint_all();
             }
         };
         radius_slider.addChangeListener(radius_changed);
@@ -118,6 +130,14 @@ public class Lab4 implements Runnable
                 curr_x = x_coord.getSelectedIndex()+1;
                 init_globals();
                 label_coords.setText(mark.toString());
+                try 
+                {
+                    painter.Painter.draw_animate_cursor(paint_area, 25,(int)Mark.Translate_reverse(mark, paint_area, 25).getX(), (int)Mark.Translate_reverse(mark, paint_area, 25).getY(), radius);
+                } catch (InterruptedException ex) 
+                {
+                    Logger.getLogger(Lab4.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
             }
         };
         x_coord.addActionListener(x_changed);
@@ -158,6 +178,13 @@ public class Lab4 implements Runnable
                     curr_y = 4;
                 }
                 init_globals();
+                try 
+                {
+                    painter.Painter.draw_animate_cursor(paint_area, 25,(int)Mark.Translate_reverse(mark, paint_area, 25).getX(), (int)Mark.Translate_reverse(mark, paint_area, 25).getY(), radius);
+                } catch (InterruptedException ex) 
+                {
+                    Logger.getLogger(Lab4.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 label_coords.setText(mark.toString());
             }
         };
@@ -170,36 +197,44 @@ public class Lab4 implements Runnable
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                label_coords.setText("Clicked");
-                painter.Painter.draw_grid_on_panel(paint_area,radius);
-                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                label_coords.setText("Clicked at " + e.getX() + ":" + e.getY());
+                try 
+                {
+                    painter.Painter.draw_animate_cursor(paint_area, 25,e.getX(), e.getY(), radius);
+                    label_coords.setText(Mark.Translate(paint_area, e.getX(), e.getY(), 25).toString());
+                } catch (InterruptedException ex) 
+                {
+                    Logger.getLogger(Lab4.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                label_coords.setText("Pressed");
+                //label_coords.setText("Pressed");
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                label_coords.setText("Released");
+                //label_coords.setText("Released");
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                label_coords.setText("Entered at ");
+                //label_coords.setText("Entered at ");
                // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                label_coords.setText("Exited");
+                //label_coords.setText("Exited");
                // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
         paint_area.addMouseListener(mouse_click);
+
         
     }
     

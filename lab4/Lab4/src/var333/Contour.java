@@ -11,7 +11,7 @@ public class Contour
     }
     
     /** returns true if Mark m hit the target, else returns false */
-    boolean is_hit(Mark m)
+    public boolean is_hit(Mark m)
     {
         //first quarter
         if(m._x>0 && m._y>0)
