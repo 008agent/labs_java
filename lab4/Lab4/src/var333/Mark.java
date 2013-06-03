@@ -9,7 +9,7 @@ public class Mark
         this._x=x;
         this._y=y;
     }
-
+    
     @Override
     public String toString() 
     {
