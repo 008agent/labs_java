@@ -2,8 +2,7 @@ package var333;
 
 import java.awt.Canvas;
 
-
-public class Mark
+public class Mark 
 {
     float _x,_y;
     /** constructor */
@@ -32,7 +31,7 @@ public class Mark
         sb.append(">");        
         return sb.toString();
     }
-    /* returns mark with absolute coords */
+    
     public static Mark Translate(Canvas _canvas,float X,float Y,int ppd)
     {
         float tmp_x,tmp_y;
@@ -40,7 +39,6 @@ public class Mark
         tmp_y = -((Y - _canvas.getHeight()/2)/ppd/2);
         return new Mark(tmp_x, tmp_y);
     }
-    /* returns mark with pixel coordinates */
     public static Mark Translate_reverse(Mark m,Canvas _canvas,int ppd)
     {
         float tmp_x,tmp_y;

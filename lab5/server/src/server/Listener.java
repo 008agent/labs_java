@@ -62,13 +62,24 @@ public class Listener implements Runnable
                      Y = Double.parseDouble(tmp.substring(posYst+3,posYend));
                      R = Double.parseDouble(tmp.substring(posRst+3,posRend));
                      
+                     
                      System.out.println(CLID + " message : " + tmp);
+                     tmp = "";
                      System.out.println(CLID + " creating calculate context");
                         Contour c = new Contour((float)R);
                         boolean hit = c.is_hit(new Mark((float)X, (float)Y));
                      System.out.println(CLID + " context created. calculating response data : HIT = " + Boolean.toString(hit) );
                      System.out.println(CLID + " sending results to client"); 
-                     client.getOutputStream().write(Boolean.toString(hit).getBytes());
+                        String response="";
+                        if(hit) 
+                        {
+                            response="true";
+                        } 
+                        else
+                        {
+                            response="false";        
+                        }
+                     client.getOutputStream().write(response.getBytes());
                      
                     //closing connection
                     client.close();
@@ -77,6 +88,7 @@ public class Listener implements Runnable
             catch(IOException ioe)
             {
                 System.err.println(ioe + ioe.toString());
+                tmp = "";
             }
             //reason : incorrect client request
             catch(StringIndexOutOfBoundsException oub)
@@ -85,6 +97,7 @@ public class Listener implements Runnable
                 try 
                 {
                     client.close();
+                    tmp = "";
                 } catch (IOException ex) 
                 {
                     Logger.getLogger(Listener.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,6 +111,7 @@ public class Listener implements Runnable
                 try 
                 {
                     client.close();
+                    tmp = "";
                 } catch (IOException ex) 
                 {
                     Logger.getLogger(Listener.class.getName()).log(Level.SEVERE, null, ex);
