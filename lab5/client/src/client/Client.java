@@ -4,6 +4,7 @@
  */
 package client;
 
+import com.sun.org.apache.xpath.internal.operations.Operation;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -25,6 +26,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import var333.Contour;
@@ -337,6 +339,8 @@ public class Client implements Runnable
         };
         server_port_text.addActionListener(serv_port_changed);
        
+        
+        form.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
     
     @Override
