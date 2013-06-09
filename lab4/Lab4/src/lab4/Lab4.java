@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import var333.Contour;
@@ -105,6 +106,7 @@ public class Lab4 implements Runnable
     //инициализация событий
     public void init_events()
     {
+        form.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         //обработчик события смены радиуса
         radius_changed = new ChangeListener() {
 
@@ -234,8 +236,8 @@ public class Lab4 implements Runnable
             }
         };
         paint_area.addMouseListener(mouse_click);
-
         
+       
     }
     
     @Override

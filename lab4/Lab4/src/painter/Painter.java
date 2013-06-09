@@ -3,13 +3,7 @@ package painter;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Panel;
 import java.awt.Polygon;
-import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
-import java.util.Random;
-import javax.swing.DebugGraphics;
 import var333.Mark;
 
 public class Painter implements Runnable
@@ -65,8 +59,8 @@ public class Painter implements Runnable
     
     public static void draw_animate_cursor(Canvas _canvas,int ppd,int X,int Y,int radius) throws InterruptedException 
     {
-        int h = _canvas.getHeight();
-        int w = _canvas.getWidth();
+        //int h = _canvas.getHeight();
+        //int w = _canvas.getWidth();
         Graphics g = _canvas.getGraphics();
         g.setXORMode(g.getColor());
         
