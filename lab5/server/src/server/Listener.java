@@ -12,19 +12,27 @@ import var333.Contour;
 import var333.Mark;
 
 
-public class Listener implements Runnable
+public class Listener/* implements Runnable*/ extends Thread
 {
     ServerSocket sk;
     
     public Listener(int port) throws IOException
     {
+        //super(this.run());
         sk = new ServerSocket();
         sk.setReuseAddress(true);
         sk.bind(new InetSocketAddress(port));
         
     }
+    
 
     @Override
+    public synchronized void start() 
+    {
+        //super.start(); //To change body of generated methods, choose Tools | Templates.
+        run();
+    }
+
     public void run()
     {
         Socket client = null;
@@ -118,8 +126,8 @@ public class Listener implements Runnable
                 }
             }
         }
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     
     String time()
     {

@@ -1,10 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package client;
 
-import com.sun.org.apache.xpath.internal.operations.Operation;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -17,6 +12,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -65,6 +62,10 @@ public class Client implements Runnable
     ActionListener                  y_changed;
     ChangeListener                  radius_changed;
     MouseListener                   mouse_click;
+    
+    //локализация
+    ResourceBundle                  rb_def;
+    
 
     //точка входа
     public static void main(String[] args) 
@@ -84,13 +85,21 @@ public class Client implements Runnable
     {
         mark    = new Mark(curr_x, curr_y);
         contour = new Contour(radius);
-        form.setTitle("radius = " + String.valueOf(radius));
+        form.setTitle( rb_def.getString("radius") + " = " + String.valueOf(radius));
     }
     
     //инициализация элементов управления
     public void init_elements()
-    {
-        server_frame = new JFrame("type here server address and port,then close this window");
+    {       
+        //Locale.setDefault(Locale.);
+        Locale loc = Locale.getDefault();
+        
+        //System.err.println(loc.getCountry());
+        //System.err.println(loc.getLanguage());
+        
+        rb_def = ResourceBundle.getBundle("Labels",loc);
+        
+        server_frame = new JFrame( rb_def.getString("type_addr_port") );
             server_frame.getContentPane().setLayout(new GridLayout(1,2));
         server_addr_text = new JTextField("127.0.0.1");
         server_port_text = new JTextField("1111");
@@ -102,7 +111,7 @@ public class Client implements Runnable
         server_frame.setAlwaysOnTop(true);
             //server_frame.add()
         
-      form = new JFrame("Lab5,var 333");
+      form = new JFrame( rb_def.getString("labwork_id") );
             form.getContentPane().setLayout(new BorderLayout());
         //панель с элементами управления
       p_elements = new Panel(new GridLayout(7,1));
@@ -118,7 +127,7 @@ public class Client implements Runnable
             p_elements.add(y_4 = new JRadioButton("Y=4"));
                     
             p_elements.add(radius_slider = new JSlider(1, 10, 1));
-            p_elements.add(label_coords = new JLabel("here will be coordinates"));
+            p_elements.add(label_coords = new JLabel( rb_def.getString("coordinates") ));
                 label_coords.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
         //панель с областью рисования
       p_canvas   = new Panel(new GridLayout());
@@ -312,7 +321,7 @@ public class Client implements Runnable
                     //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
                 } catch (UnknownHostException ex) 
                 {
-                    server_frame.setTitle("unknown host");
+                    server_frame.setTitle(rb_def.getString("unknown_host") );
                     Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -331,7 +340,7 @@ public class Client implements Runnable
                 }
                 catch(NumberFormatException nfe)
                 {
-                    server_frame.setTitle("incorrect port nubmer");
+                    server_frame.setTitle( rb_def.getString("incorrect_id") );
                 }
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
