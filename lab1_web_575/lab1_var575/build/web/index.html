@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Ratnikov V.I. 4105. var 575</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body>
+        
+        <link rel="stylesheet" type="text/css"  href="csstable.css">
+        <script type="text/javascript" src="./functions.js"></script>
+        
+        
+        <p>
+            <b>
+                <h1>
+                    Задание:
+                </h1>
+            </b>
+            <img src="areas.png" onclick="foo()">
+        </p>
+        
+        <div>
+                <h2>
+                    Enter arguments:
+                </h2>
+            <form method="POST" action="servlet">
+                    
+                    <p>
+                        <b>
+                            <p>
+                                Set Х coordinate:
+                            </p>
+                            
+                            <input type="text" class="controls" id="X" name="X">                            
+                        </b>
+                    </p>
+                    
+                    <p>
+                        <b>
+                            <p>
+                                Choose coordinate У:  
+                            </p>
+                            
+                            <input type="radio" class="controls" name="Y" title="-5" value="-5" checked="true">
+                            <input type="radio" class="controls" name="Y" title="-4" value="-4">
+                            <input type="radio" class="controls" name="Y" title="-3" value="-3">
+                            <input type="radio" class="controls" name="Y" title="-2" value="-2">
+                            <input type="radio" class="controls" name="Y" title="-1" value="-1">
+                            <input type="radio" class="controls" name="Y" title="0" value="0">
+                            <input type="radio" class="controls" name="Y" title="1" value="1">
+                            <input type="radio" class="controls" name="Y" title="2" value="2">
+                            <input type="radio" class="controls" name="Y" title="3" value="3">
+                        </b>         
+                    </p>
+                    
+                    <p>
+                        <b>
+                            <p>
+                                Choose radius R:
+                            </p>
+                            
+                            <select name="R" class="controls" id="R">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </b>
+                    </p>
+                    
+                    <p>
+                        <b>
+                            <input type="submit" class="controls" value="Submit data" onclick="return confirm('уверены?') && restrictinput( document.getElementById('X') )">
+                        </b>
+                    </p>
+                      
+                    
+                </form>
+        </div>
+
+    </body>
+    
+    
+</html>

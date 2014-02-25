@@ -1,0 +1,21 @@
+h1
+{
+    background: coral;
+}
+
+h2
+{
+    background: blue;
+}
+
+img
+{
+    border: #342dd5;
+}
+
+
+*.controls
+{
+    position: relative; left: 25px;
+    width: 200px;
+}
